@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="hiqos-popo" parallel="true" thread-count="10">
+
+    <test name="onliner" parallel="methods" thread-count="10">
+        <classes>
+            <class name="popo.hiqos.app.test.TestOnliner"/>
+        </classes>
+    </test>
+
+</suite>
