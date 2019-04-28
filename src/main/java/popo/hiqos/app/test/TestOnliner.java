@@ -13,23 +13,33 @@ import static org.hamcrest.number.OrderingComparison.greaterThan;
 public class TestOnliner extends BaseTest {
 
     private final String xiaomiMiSearch = "xiaomi Mi";
+    private final String containedText = "xiaomi";
 
     @Test(groups = {TestGroup.SEARCH, TestGroup.MOBILE})
     public void testSearchProductItems() {
-        OnlinerMainPage onlinerMainPage = new OnlinerMainPage();
-        int results = onlinerMainPage.getHeader().getTopActions().search(xiaomiMiSearch).getVisibleResultsCount();
+        final String searchingProduct = xiaomiMiSearch;
+        final int assertedResult = 1;
 
-        assertThat("",
-                results, greaterThan(1));
+        OnlinerMainPage onlinerMainPage = new OnlinerMainPage();
+        int searchingProductsCount = onlinerMainPage.getHeader().getTopActions().search(searchingProduct)
+                .getVisibleResultsCount(containedText);
+
+        assertThat(String.format("Count of searching results of '%s' product is '%d', but does not greater than '%d'",
+                searchingProduct, searchingProductsCount, assertedResult),
+                searchingProductsCount, greaterThan(assertedResult));
     }
 
     @Test(groups = {TestGroup.PRICE, TestGroup.MOBILE, TestGroup.PRODUCT})
     public void testPrice() {
+        final String searchingProduct = xiaomiMiSearch;
+        final double expectedArithmeticOfferPrice = 100d;
+
         OnlinerMainPage onlinerMainPage = new OnlinerMainPage();
-        int offerPrice = onlinerMainPage.getHeader().getTopActions().search(xiaomiMiSearch).clickToFirstResultOffer().getArithmeticOfferPrice();
+        double arithmeticOfferPrice = onlinerMainPage.getHeader().getTopActions().search(searchingProduct)
+                .clickToFirstResultOffer(containedText).getArithmeticOfferPrice();
 
-        assertThat("",
-                offerPrice, greaterThan(100));
+        assertThat(String.format("Arithmetic offer price fot '%s' is '%f', but does not as expected price '%f'",
+                searchingProduct, arithmeticOfferPrice, expectedArithmeticOfferPrice),
+                arithmeticOfferPrice, greaterThan(expectedArithmeticOfferPrice));
     }
-
 }

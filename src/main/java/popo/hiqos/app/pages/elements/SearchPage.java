@@ -1,5 +1,6 @@
 package popo.hiqos.app.pages.elements;
 
+import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
@@ -7,23 +8,33 @@ import popo.hiqos.app.pages.ProductPage;
 import popo.hiqos.framework.base.WebPage;
 import popo.hiqos.framework.helpers.Locators;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.switchTo;
 
 public class SearchPage extends WebPage {
 
     private final SelenideElement
-            searchPage = $(Locators.get("topActions.searchIFrame")).shouldBe(Condition.visible);
+            searchPageIFrame = $(Locators.get("topActions.searchIFrame")).waitUntil(Condition.visible, 4000),
+            searchPage = $(Locators.get("topActions.searchPage"));
 
     public SearchPage() {
-        switchTo().frame(searchPage);
+        switchTo().frame(searchPageIFrame);
     }
 
-    public int getVisibleResultsCount() {
-        return $$(By.tagName("li")).size();
+    public int getVisibleResultsCount(String containedText) {
+        return searchPage.$$(By.tagName("li"))
+                .shouldBe(CollectionCondition.sizeGreaterThan(0), 4000)
+                .filter(Condition.text(containedText))
+                .size();
     }
 
-    public ProductPage clickToFirstResultOffer() {
-        $$(By.tagName("li")).first().$(By.tagName("a")).click();
+    public ProductPage clickToFirstResultOffer(String containedText) {
+        searchPage.$$(By.tagName("li"))
+                .shouldBe(CollectionCondition.sizeGreaterThan(0), 4000)
+                .first()
+                .shouldHave(Condition.text(containedText))
+                .$(By.tagName("a"))
+                .click();
         return new ProductPage();
     }
 }
