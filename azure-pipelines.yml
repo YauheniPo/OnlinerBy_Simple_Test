@@ -23,7 +23,7 @@ jobs:
       jdkVersionOption: '1.8'
       jdkArchitectureOption: 'x64'
       publishJUnitResults: false
-      goals: 'clean test -Dmaven.wagon.http.pool=false'
+      goals: 'clean compile test site -Dmaven.wagon.http.pool=false'
 
   - task: PublishBuildArtifacts@1
     displayName: Publish Build Artifacts
@@ -36,7 +36,7 @@ jobs:
     displayName: Publish Test Results
     inputs:
       testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
-      testResultsFiles: '**/testng-*.xml'
+      testResultsFiles: '**/surefire-reports/testng-results.xml'
       searchFolder: '$(System.DefaultWorkingDirectory)'
       mergeTestResults: false # Optional
       failTaskOnFailedTests: true # Optional
