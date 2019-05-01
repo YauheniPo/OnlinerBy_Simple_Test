@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class TopActions extends WebPage {
 
     private final SelenideElement
-            searchInput = $(Locators.get("topActions.search")).waitUntil(Condition.visible, 4000);
+            searchInput = $(Locators.get("topActions.search")).shouldBe(Condition.visible);
 
     public SearchPage search(String text) {
         log.info(String.format("Set value '%s' to SEARCH input field", text));

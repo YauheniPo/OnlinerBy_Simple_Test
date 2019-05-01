@@ -9,7 +9,7 @@ import static popo.hiqos.app.Constants.DOUBLE_NUMBERS_REG_EXP;
 
 public class ProductPage extends BaseOnlinerWebPage {
 
-    private final SelenideElement header = $(Locators.get("productPage.header")).waitUntil(Condition.visible, 4000);
+    private final SelenideElement header = $(Locators.get("productPage.header")).shouldBe(Condition.visible);
     private final SelenideElement offerDescription = $(Locators.get("productPage.offer"));
 
     public double getArithmeticOfferPrice() {

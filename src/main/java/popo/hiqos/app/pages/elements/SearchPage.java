@@ -14,7 +14,7 @@ import static com.codeborne.selenide.Selenide.switchTo;
 public class SearchPage extends WebPage {
 
     private final SelenideElement
-            searchPageIFrame = $(Locators.get("topActions.searchIFrame")).waitUntil(Condition.visible, 4000),
+            searchPageIFrame = $(Locators.get("topActions.searchIFrame")).shouldBe(Condition.visible),
             searchPage = $(Locators.get("topActions.searchPage"));
 
     public SearchPage() {
