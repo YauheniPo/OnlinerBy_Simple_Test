@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import popo.hiqos.app.pages.ProductPage;
 import popo.hiqos.framework.base.WebPage;
 import popo.hiqos.framework.helpers.Locators;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.switchTo;
@@ -21,6 +22,7 @@ public class SearchPage extends WebPage {
         switchTo().frame(searchPageIFrame);
     }
 
+    @Step
     public int getVisibleResultsCount(String containedText) {
         return searchPage.$$(By.tagName("li"))
                 .shouldBe(CollectionCondition.sizeGreaterThan(0), 4000)
@@ -28,6 +30,7 @@ public class SearchPage extends WebPage {
                 .size();
     }
 
+    @Step
     public ProductPage clickToFirstResultOffer(String containedText) {
         searchPage.$$(By.tagName("li"))
                 .shouldBe(CollectionCondition.sizeGreaterThan(0), 4000)

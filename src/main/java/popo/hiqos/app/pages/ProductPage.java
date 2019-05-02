@@ -3,6 +3,7 @@ package popo.hiqos.app.pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import popo.hiqos.framework.helpers.Locators;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import static com.codeborne.selenide.Selenide.$;
 import static popo.hiqos.app.Constants.DOUBLE_NUMBERS_REG_EXP;
@@ -12,6 +13,7 @@ public class ProductPage extends BaseOnlinerWebPage {
     private final SelenideElement header = $(Locators.get("productPage.header")).shouldBe(Condition.visible);
     private final SelenideElement offerDescription = $(Locators.get("productPage.offer"));
 
+    @Step
     public double getArithmeticOfferPrice() {
         String offerPrices = offerDescription.$(Locators.get("productPage.offer.price")).getText();
         String offerPricesReplacing = offerPrices

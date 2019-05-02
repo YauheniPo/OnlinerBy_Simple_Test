@@ -5,6 +5,10 @@ import org.testng.annotations.Test;
 import popo.hiqos.app.TestGroup;
 import popo.hiqos.app.pages.OnlinerMainPage;
 import popo.hiqos.framework.base.BaseTest;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.model.SeverityLevel;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.number.OrderingComparison.greaterThan;
@@ -15,6 +19,9 @@ public class TestOnliner extends BaseTest {
     private final String xiaomiMiSearch = "xiaomi Mi";
     private final String containedText = "xiaomi";
 
+    @Description(value = "Validation of search field")
+    @Features(value = "Validation of search product")
+    @Severity(value = SeverityLevel.NORMAL)
     @Test(groups = {TestGroup.SEARCH, TestGroup.MOBILE})
     public void testSearchProductItems() {
         final String searchingProduct = xiaomiMiSearch;
@@ -29,6 +36,9 @@ public class TestOnliner extends BaseTest {
                 searchingProductsCount, greaterThan(assertedResult));
     }
 
+    @Description(value = "Validation of price")
+    @Features(value = "Validation of average price")
+    @Severity(value = SeverityLevel.NORMAL)
     @Test(groups = {TestGroup.PRICE, TestGroup.MOBILE, TestGroup.PRODUCT})
     public void testPrice() {
         final String searchingProduct = xiaomiMiSearch;
